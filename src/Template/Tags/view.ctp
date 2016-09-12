@@ -53,9 +53,9 @@
                 <td class="col-lg-2 table-row"><?= h($bookmarks->created) ?></td>
                 <td class="col-lg-1 table-row"><?= h($bookmarks->updated) ?></td>
                 <td class="actions col-lg-3 table-row">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Bookmarks', 'action' => 'view', $bookmarks->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Bookmarks', 'action' => 'edit', $bookmarks->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Bookmarks', 'action' => 'delete', $bookmarks->id], ['confirm' => __('Are you sure you want to delete # {0}?', $bookmarks->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'Bookmarks', 'action' => 'view', $bookmarks->id],['class'=>'link-style']) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Bookmarks', 'action' => 'edit', $bookmarks->id],['class'=>'link-style']) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Bookmarks', 'action' => 'delete', $bookmarks->id], ['confirm' => __('Are you sure you want to delete # {0}?', $bookmarks->id), 'class'=>'link-style']) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

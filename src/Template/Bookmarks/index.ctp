@@ -13,23 +13,23 @@
     <table cellpadding="0" cellspacing="0" class="table-style">
         <thead>
             <tr class="table-heading-style">
-                <th scope="col" class="col-lg-2 table-row"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col" class="col-lg-2 table-row"><?= $this->Paginator->sort('user_id') ?></th>
+                <th scope="col" class="col-lg-1 table-row"><?= $this->Paginator->sort('id') ?></th>
+                <th scope="col" class="col-lg-1 table-row"><?= $this->Paginator->sort('user_id') ?></th>
                 <th scope="col" class="col-lg-2 table-row"><?= $this->Paginator->sort('twit') ?></th>
-                <th scope="col" class="col-lg-2 table-row"><?= $this->Paginator->sort('created') ?></th>
+                <th scope="col" class="col-lg-3 table-row"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col" class="col-lg-2 table-row"><?= $this->Paginator->sort('updated') ?></th>
-                <th scope="col" class="actions col-lg-2 table-row"><?= __('Actions') ?></th>
+                <th scope="col" class="actions col-lg-3 table-row"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($bookmarks as $bookmark): ?>
             <tr class="table-border-style">
-                <td class="col-lg-2 table-row"><?= $this->Number->format($bookmark->id) ?></td>
-                <td class="col-lg-2 table-row"><?= $bookmark->has('user') ? $this->Html->link($bookmark->user->id, ['controller' => 'Users', 'action' => 'view', $bookmark->user->id]) : '' ?></td>
+                <td class="col-lg-1 table-row"><?= $this->Number->format($bookmark->id) ?></td>
+                <td class="col-lg-1 table-row"><?= $bookmark->has('user') ? $this->Html->link($bookmark->user->id, ['controller' => 'Users', 'action' => 'view', $bookmark->user->id]) : '' ?></td>
                 <td class="col-lg-2 table-row"><?= h($bookmark->twit) ?></td>
-                <td class="col-lg-2 table-row"><?= h($bookmark->created) ?></td>
+                <td class="col-lg-3 table-row"><?= h($bookmark->created) ?></td>
                 <td class="col-lg-2 table-row"><?= h($bookmark->updated) ?></td>
-                <td class="actions col-lg-2 table-row">
+                <td class="actions col-lg-3 table-row">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $bookmark->id],['class'=>'link-style']) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $bookmark->id],['class'=>'link-style']) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $bookmark->id], ['confirm' => __('Are you sure you want to delete # {0}?', $bookmark->id),'class'=>'link-style']) ?>
