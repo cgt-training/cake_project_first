@@ -11,6 +11,15 @@ use App\Controller\AppController;
 class BookmarksController extends AppController
 {
 
+    // public $components = ['Paginator'];
+    // public $paginate = [
+    //     'limit' => 25,
+    //     'order' => [
+    //         'Articles.title' => 'asc'
+    //     ]
+    // ];
+
+
     public function initialize()
     {
         parent::initialize();
@@ -27,7 +36,13 @@ class BookmarksController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users']
+            'fields' => ['Bookmarks.id', 'Users.id', 'Bookmarks.twit','Bookmarks.created', 'Bookmarks.updated'],
+            'contain' => ['Users'],//association
+            'order' => [
+                  'twit' => 'asc'
+             ],            
+            'limit' => 2,
+            
         ];
         $bookmarks = $this->paginate($this->Bookmarks);
 
@@ -122,5 +137,17 @@ class BookmarksController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+    *test fucntion
+    **/
+    public function testWasim()
+    {
+        $bookmark = $this->Bookmarks->testWasim();
+// pr($bookmark->toArray());exit();
+        $this->set('color', 'pink');
+        $this->set(compact('bookmark'));
+        $this->set('_serialize', ['bookmark']);
     }
 }

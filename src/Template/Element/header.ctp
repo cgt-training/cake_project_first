@@ -29,10 +29,18 @@
 			    </div>
 			    <div class="collapse navbar-collapse" id="navbar-collapse-header">
 				    <ul class="nav navbar-nav">
-				        <li class="active"><a href="#" class="nav-menu">Home<span class="sr-only">(current)</span></a></li>
-				        <li><a href="#" class="nav-menu">About Us</a></li>
-				        <li><a href="#" class="nav-menu">Courses</a></li>
-				        <li><a href="#" class="nav-menu">Admission Procedure</a></li>
+				        <li class="<?php echo (!empty($this->request->params['controller']) && ($this->request->params['controller']=='Users') )?'active' :'inactive' ?>">
+                            <?php echo $this->Html->link('Users', ['controller' => 'Users'], ['class'=>'nav-menu']) ?>
+                        </li>
+
+                        <li class="<?php echo (!empty($this->request->params['controller']) && ($this->request->params['controller']=='Bookmarks') )?'active' :'inactive' ?>">
+                            <?php echo $this->Html->link('Bookmarks', ['controller' => 'Bookmarks'], ['class'=>'nav-menu']) ?>
+                        </li>
+
+                        <li class="<?php echo (!empty($this->request->params['controller']) && ($this->request->params['controller']=='Tags') )?'active' :'inactive' ?>">
+                            <?php echo $this->Html->link('Tags', ['controller' => 'Tags'],	['class'=>'nav-menu']) ?>
+                        </li>
+
 				        <li><a href="#" class="nav-menu">Development</a></li>
 				        <li><a href="#" class="nav-menu">Faculty</a></li>
 				        <li><a href="#" class="nav-menu">Placement</a></li>

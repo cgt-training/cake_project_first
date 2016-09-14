@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Bookmarks Model
@@ -89,5 +90,35 @@ class BookmarksTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
+    }
+
+    public function testWasim()
+    {
+        $bookmarks = TableRegistry::get('Bookmarks');
+        $query = $bookmarks->find()->where(['id >'=> 4])->order(['twit'=>'asc'])->group('user_id')->toArray();
+                // $query->select()->toArray();
+
+        /** Concatinate without join **/
+        // $query = $bookmarks
+        //         ->find();
+        //         $concat = $query->func()->concat([
+        //             'id' => 'identifier',
+        //             ' - CAT: ',
+        //             'twit' => 'identifier',
+        //         ]);
+        //         $query->select(['conct' => $concat,'twit'])
+        //         ->where(['id' => 2])
+        //         ->toArray();
+
+        /** Concatinate with join **/
+        // $query = $bookmarks->find()->innerJoinWith('Tags');
+        // $concat = $query->func()->concat([
+        //     'Tags.title' => 'identifier',
+        //     ' - CAT: ',
+        //     'Bookmarks.twit' => 'identifier',
+        // ]);
+        // $query->select(['link_title' => $concat, 'Bookmarks.twit']);
+                // pr($query);exit(0);
+return $query;
     }
 }

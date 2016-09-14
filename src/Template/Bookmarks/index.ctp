@@ -40,10 +40,13 @@
     </table>
     <div class="paginator text-center">
         <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('< first') ?>
+            <?= $this->Paginator->prev('<< ' . __('previous')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->next(__('next') . ' >>') ?>
+            <?= $this->Paginator->last('last >') ?>
         </ul>
         <p class="text-right"><?= $this->Paginator->counter() ?></p>
     </div>
+    <?= $this->Html->link(__('ok'), ['action' => 'testWasim'],['class'=>'input-style-button']) ?>
 </div>
