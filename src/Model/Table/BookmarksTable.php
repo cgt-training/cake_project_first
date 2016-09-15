@@ -119,6 +119,11 @@ class BookmarksTable extends Table
         // ]);
         // $query->select(['link_title' => $concat, 'Bookmarks.twit']);
                 // pr($query);exit(0);
-return $query;
+        return $query;
+    }
+
+    public function isOwnedBy($bookmarkId, $userId)
+    {
+        return $this->exists(['id' => $bookmarkId, 'user_id' => $userId]);
     }
 }

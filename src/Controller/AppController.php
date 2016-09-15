@@ -37,13 +37,13 @@ class AppController extends Controller
      *
      * @return void
      */
-    public function initialize()
-    {
-        parent::initialize();
+    // public function initialize()
+    // {
+    //     parent::initialize();
 
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
-    }
+    //     $this->loadComponent('RequestHandler');
+    //     $this->loadComponent('Flash');
+    // }
 
     /**
      * Before render callback.
@@ -58,5 +58,44 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+
+    // Added by Wasim for session authentication
+    public function initialize()
+    {
+        parent::initialize();
+
+        $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => ['username' => 'username', 'password' => 'password'],
+                    'finder' => 'verifyAuth'
+                ]
+            ],
+            'loginRedirect' => [
+                'authorize' => ['Controller'],
+                'controller' => 'Bookmarks',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login',
+            ]
+            
+        ]);
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index', 'view']);
+    }
+
+    public function isAuthorized($user,$username)
+    {
+        // Admin can access every action
+        if (isset($username) && $username == 'wasim') {            
+            return true;
+        }        
     }
 }

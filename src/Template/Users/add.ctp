@@ -10,6 +10,11 @@
         <legend class="legend-style"><?= __('Add User') ?></legend>
         
         <div class = 'input-style-block'>
+            <?php  echo $this->Form->label('username'); ?>
+        </div>
+        <?php echo $this->Form->input('username', ['label' => false, 'class' => 'input-style-content']);?>
+
+        <div class = 'input-style-block'>
             <?php  echo $this->Form->label('email'); ?>
         </div>
         <?php echo $this->Form->input('email', ['label' => false, 'class' => 'input-style-content']);?>

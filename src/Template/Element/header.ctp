@@ -28,23 +28,33 @@
 			       <!-- <a class="navbar-brand" href="#"></a>      -->
 			    </div>
 			    <div class="collapse navbar-collapse" id="navbar-collapse-header">
-				    <ul class="nav navbar-nav">
+				    <ul class="nav nav-justified">
 				        <li class="<?php echo (!empty($this->request->params['controller']) && ($this->request->params['controller']=='Users') )?'active' :'inactive' ?>">
-                            <?php echo $this->Html->link('Users', ['controller' => 'Users'], ['class'=>'nav-menu']) ?>
+                            <?php echo $this->Html->link('Users', ['controller' => 'Users', 'action' => 'index'], ['class'=>'nav-menu']) ?>
                         </li>
 
                         <li class="<?php echo (!empty($this->request->params['controller']) && ($this->request->params['controller']=='Bookmarks') )?'active' :'inactive' ?>">
-                            <?php echo $this->Html->link('Bookmarks', ['controller' => 'Bookmarks'], ['class'=>'nav-menu']) ?>
+                            <?php echo $this->Html->link('Bookmarks', ['controller' => 'Bookmarks', 'action' => 'index'], ['class'=>'nav-menu']) ?>
                         </li>
 
                         <li class="<?php echo (!empty($this->request->params['controller']) && ($this->request->params['controller']=='Tags') )?'active' :'inactive' ?>">
-                            <?php echo $this->Html->link('Tags', ['controller' => 'Tags'],	['class'=>'nav-menu']) ?>
+                            <?php echo $this->Html->link('Tags', ['controller' => 'Tags', 'action' => 'index'],	['class'=>'nav-menu']) ?>
                         </li>
 
-				        <li><a href="#" class="nav-menu">Development</a></li>
-				        <li><a href="#" class="nav-menu">Faculty</a></li>
-				        <li><a href="#" class="nav-menu">Placement</a></li>
+				        <?php if($this->request->session()->read('Auth.User.username')) { ?>
+					        <li><a href="#" class="nav-menu">Faculty</a></li>
+					        <li><a href="#" class="nav-menu">Placement</a></li>
+					    <?php } ?>
 				        <li><a href="#" class="nav-menu">Contact Us</a></li>
+				        
+				        <?php if($this->request->session()->read('Auth.User.username')) { ?>
+				        <li class="nav-menu"><?php echo $this->Html->link('Logout', ['controller' => 'Users', 'action' => 'logout'],	['class'=>'nav-menu']) ?></li>
+				        <?php } else { ?>
+				        <li class="nav-menu"><?php echo $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login'],	['class'=>'nav-menu']) ?></li>
+				        <?php } ?>
+
+				        <li>Welcome&nbsp;<?php echo (!empty($this->request->session()->read('Auth.User.username'))? $this->request->session()->read('Auth.User.username') : 'Guest' ); ?>
+				        </li>
 				    </ul>
 				</div>
 			</nav>

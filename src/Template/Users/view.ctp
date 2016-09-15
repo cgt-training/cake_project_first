@@ -11,6 +11,10 @@
     <h3 class='legend-list-heading'><?= h($user->id) ?></h3>
     <table class="vertical-table table-style">
         <tr class="table-border-style">
+            <th scope="row" class='col-lg-9 view-content-style'><?= __('Username') ?></th>
+            <td class='col-lg-3 text-right'><?= h($user->username) ?></td>
+        </tr>
+        <tr class="table-border-style">
             <th scope="row" class='col-lg-9 view-content-style'><?= __('Email') ?></th>
             <td class='col-lg-3 text-right'><?= h($user->email) ?></td>
         </tr>

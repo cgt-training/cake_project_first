@@ -67,6 +67,10 @@ class UsersTable extends Table
             ->requirePresence('password', 'create')
             ->notEmpty('password');
 
+        $validator
+            ->requirePresence('username', 'create')
+            ->notEmpty('username');
+
         return $validator;
     }
 
@@ -83,4 +87,14 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+    public function findVerifyAuth(Query $query,array $options)
+    {
+        $query
+        ->select(['id', 'username','email', 'password'])
+        ->orWhere(['email' => $options['username']]);
+
+        return $query;
+    }
+
 }
