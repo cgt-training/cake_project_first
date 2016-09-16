@@ -57,6 +57,8 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEntity();
+        // echo $this->Cookie->read('userLogin.username');
+        // echo $this->Cookie->read('userLogin.userId');
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
@@ -67,6 +69,7 @@ class UsersController extends AppController
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
+        $this->set('cookieData',$this->Cookie->read('userLogin'));
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
@@ -131,19 +134,26 @@ class UsersController extends AppController
     public function login()
     {
         if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
+            $user = $this->Auth->identify();            
             if ($user) {
-                $this->Auth->setUser($user);
+                if($this->request->data['rememberMe']){
+                    $this->Cookie->write('userLogin',['userId' => $user['id'], 'username' => $user['username']]);
+                }
+                $this->Auth->setUser($user);                
                 $this->Flash->success(__('Login Successful'));
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            $this->Flash->error(__('Invalid username or password, try again'));
+            $this->Flash->warning(__('Invalid username or password, try again'));
         }
     }
 
     public function logout()
     {
-        $this->Flash->success(__('Logout successful'));
+        $this->Flash->success(__('Logout successful'));        
+        if($this->Cookie->check('userLogin'))
+        {
+            $this->Cookie->delete('userLogin');
+        }
         return $this->redirect($this->Auth->logout());
     }
 

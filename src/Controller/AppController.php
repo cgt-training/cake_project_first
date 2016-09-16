@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -66,15 +67,17 @@ class AppController extends Controller
         parent::initialize();
 
         $this->loadComponent('Flash');
+        $this->loadComponent('Cookie');
+        $this->Cookie->configKey('userLogin', 'encryption', false);
         $this->loadComponent('Auth', [
+            // 'authorize' => 'Controller',
             'authenticate' => [
                 'Form' => [
                     'fields' => ['username' => 'username', 'password' => 'password'],
                     'finder' => 'verifyAuth'
                 ]
             ],
-            'loginRedirect' => [
-                'authorize' => ['Controller'],
+            'loginRedirect' => [                
                 'controller' => 'Bookmarks',
                 'action' => 'index'
             ],
@@ -84,6 +87,8 @@ class AppController extends Controller
             ]
             
         ]);
+
+        $this->CookieExist();
     }
 
     public function beforeFilter(Event $event)
@@ -97,5 +102,15 @@ class AppController extends Controller
         if (isset($username) && $username == 'wasim') {            
             return true;
         }        
+    }
+
+    public function CookieExist()
+    {
+        if ($this->Cookie->check('userLogin')) {
+            // pr($this->Cookie->read('userLogin'));
+            // $user = TableRegistry::get('Users');
+            // pr($user->findByUsername($this->Cookie->read('userLogin.username'))->select(['username','id'])->first());
+            $this->Auth->setUser($this->Cookie->read('userLogin'));
+        }
     }
 }

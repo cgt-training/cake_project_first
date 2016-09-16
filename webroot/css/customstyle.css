@@ -416,3 +416,15 @@
 	color: #00cccc;
 	height: 30px;
 }
+.error{
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	width: 400px;
+	float: right;
+}
+.error-message{
+	color: #b32400;
+	background-color: #ff8566;
+}

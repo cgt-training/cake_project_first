@@ -1,0 +1,1 @@
+<div class="error error-message text-center" onclick="this.classList.add('hidden')"><?= h($message) ?></div>

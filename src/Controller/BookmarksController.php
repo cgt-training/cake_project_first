@@ -163,6 +163,7 @@ class BookmarksController extends AppController
     public function testWasim()
     {
         $bookmark = $this->Bookmarks->testWasim();
+        // $bookmark = $this->Bookmarks->findByTwit('b')->all();
 // pr($bookmark->toArray());exit();
         $this->set('color', 'pink');
         $this->set(compact('bookmark'));

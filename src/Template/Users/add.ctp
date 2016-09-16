@@ -1,3 +1,4 @@
+<?php //pr($cookieData); ?>
 <nav class="col-lg-3 col-sm-4 columns side-menu" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading side-heading"><?= __('Actions') ?></li>
