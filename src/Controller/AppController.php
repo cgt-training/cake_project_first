@@ -69,39 +69,103 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Cookie');
         $this->Cookie->configKey('userLogin', 'encryption', false);
-        $this->loadComponent('Auth', [
-            // 'authorize' => 'Controller',
-            'authenticate' => [
-                'Form' => [
-                    'fields' => ['username' => 'username', 'password' => 'password'],
-                    'finder' => 'verifyAuth'
-                ]
-            ],
-            'loginRedirect' => [                
+        if(isset($this->request->prefix) && ($this->request->prefix == 'admin'))
+        {            
+            $this->loadComponent('Auth', [
+                'authorize' => 'Controller',  
+
+                'loginRedirect' => [
                 'controller' => 'Bookmarks',
-                'action' => 'index'
-            ],
-            'logoutRedirect' => [
+                'action' => 'index',
+                'prefix' => 'admin',
+                // 'prefix' => false,
+                ],
+
+                'logoutRedirect' => [
                 'controller' => 'Users',
                 'action' => 'login',
-            ]
-            
-        ]);
+                'prefix' => false,
+                    
+                ],
 
-        $this->CookieExist();
+                'authenticate' => [
+                    'Form' => [
+                        'fields' => ['username' => 'username', 'password' => 'password'],
+                        'finder' => 'userRole'
+                    ]
+
+                ],
+                
+            ]);
+        }
+        else{  
+            $this->loadComponent('Auth', [
+                // 'authorize' => 'Controller',
+                'authenticate' => [
+                    'Form' => [
+                        'fields' => ['username' => 'username', 'password' => 'password'],
+                        'finder' => 'verifyAuth'
+                    ]
+                ],
+                'loginRedirect' => [                
+                    'controller' => 'Bookmarks',
+                    'action' => 'index',
+                    'prefix' => false,
+                ],
+                'logoutRedirect' => [
+                    'controller' => 'Users',
+                    'action' => 'login',
+                    'prefix' => false,
+                ]
+                
+            ]);
+
+            $this->CookieExist();
+        }
     }
 
     public function beforeFilter(Event $event)
     {
         $this->Auth->allow(['index', 'view']);
+        if($this->request->prefix == 'admin')
+        {
+            $this->Auth->deny();
+        }
+        else
+        {
+            $this->Auth->allow(['index','view']);
+        }
+        // if($this->Auth->request->params['prefix'] == 'admin')
+        // {
+        //     $this->Auth->allow(['index', 'view', 'edit', 'add', 'delete', 'logout']);
+        // }
     }
 
-    public function isAuthorized($user,$username)
+ 
+    public function isAuthorized($user)
     {
-        // Admin can access every action
-        if (isset($username) && $username == 'wasim') {            
-            return true;
-        }        
+        // Admin can access every action        
+        // if($this->request->session()->read('Auth.Users.role') == 'admin') {            
+        //     return true;
+        // }        
+        // return false;
+
+        if (isset($this->request->params['prefix']) && $this->request->params['prefix'] === 'admin') {
+
+            if($user['role'] != 'admin'){
+                $this->Flash->error("Unauthorized access");     
+                $this->redirect(array('controller' => 'Users','action' => 'index', 'prefix' => false));
+                return false;
+            }            //return true;
+
+        }
+
+        if(isset($user) && $user['role'] != 'admin')
+        {
+            return false;
+        }
+        
+        return true;
     }
 
     public function CookieExist()

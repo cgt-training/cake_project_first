@@ -5,6 +5,7 @@
         <li><?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class'=>'side-list-content']) ?> </li>
         <li><?= $this->Html->link(__('List Users'), ['action' => 'index'],['class'=>'side-list-content']) ?> </li>
         <li><?= $this->Html->link(__('New User'), ['action' => 'add'],['class'=>'side-list-content']) ?> </li>
+         <li><?= $this->Html->link(__('List Bookmarks'), ['controller' => 'Bookmarks', 'action' => 'index'],['class'=>'side-list-content']) ?></li>
     </ul>
 </nav>
 <div class="users view col-lg-8 col-sm-7 columns content main-content-list-data">

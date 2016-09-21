@@ -126,4 +126,17 @@ class BookmarksTable extends Table
     {
         return $this->exists(['id' => $bookmarkId, 'user_id' => $userId]);
     }
+
+    public function findCustomFinder(Query $query,array $options)
+    {
+        return $query->select(['user_id','twit'])->where(['user_id' => $options['user']])
+                    ->orWhere(['user_id' => '3']);
+    }
+    public function findGetUser(Query $query,array $options)
+    {
+        // return $query->select(['description'])->orWhere(['user_id' => $options['user']]);
+        return $query->orWhere(['user_id' => 3]);
+    }
+
+
 }

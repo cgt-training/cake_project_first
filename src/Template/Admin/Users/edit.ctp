@@ -8,6 +8,7 @@
             )
         ?></li>
         <li><?= $this->Html->link(__('List Users'), ['action' => 'index'],['class'=>'side-list-content']) ?></li>
+         <li><?= $this->Html->link(__('List Bookmarks'), ['controller' => 'Bookmarks', 'action' => 'index'],['class'=>'side-list-content']) ?></li>
     </ul>
 </nav>
 <div class="users form col-lg-8 col-sm-7 columns content main-content-data">

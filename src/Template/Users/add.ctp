@@ -1,4 +1,6 @@
-<?php //pr($cookieData); ?>
+<?php //pr($cookieData); 
+        // pr($user);
+ ?>
 <nav class="col-lg-3 col-sm-4 columns side-menu" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading side-heading"><?= __('Actions') ?></li>
@@ -24,6 +26,11 @@
             <?php  echo $this->Form->label('password'); ?>
         </div>
         <?php echo $this->Form->input('password', ['label' => false, 'class' => 'input-style-content']); ?>
+
+        <div class = 'input-style-block'>
+            <?php  echo $this->Form->label('role'); ?>
+        </div>
+        <?php echo $this->Form->input('role', ['label' => false, 'class'=>'input-style-content','options'=>['admin'=>'Admin','user'=>'User']]); ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'input-style-button']) ?>
     <?= $this->Form->end() ?>

@@ -91,10 +91,16 @@ class UsersTable extends Table
     public function findVerifyAuth(Query $query,array $options)
     {
         $query
-        ->select(['id', 'username','email', 'password'])
+        ->select(['id', 'username','email', 'password','role'])
         ->orWhere(['email' => $options['username']]);
 
         return $query;
+    }
+
+    public function findUserRole(Query $query,array $options)
+    {
+        $query = $query->find('verifyAuth');
+        return $query->where(['role' => 'admin']);
     }
 
 }

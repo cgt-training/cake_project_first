@@ -50,7 +50,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
     $routes->connect('/', ['controller' => 'Bookmarks', 'action' => 'index', 'home']);
-
+    // $routes->connect('/:controller/:action/*',[], ['routeClass' => 'DashedRoute']);
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
@@ -72,6 +72,26 @@ Router::scope('/', function (RouteBuilder $routes) {
      * You can remove these routes once you've connected the
      * routes you want in your application.
      */
+    
+    Router::prefix('admin', function ($routes) {
+        // Because you are in the admin scope,
+        // you do not need to include the /admin prefix
+        // or the admin route element.
+        $routes->connect('/', ['controller' => 'Users', 'action' => 'index']);
+
+        $routes->connect('/:controller',['action' => 'index']);
+
+        $routes->connect('/:controller/:action/*',[], ['routeClass' => 'DashedRoute']);
+
+        // $routes->connect('/postsupdate/:action', ['controller' => 'Postsupdate']);
+
+        $routes->fallbacks('InflectedRoute');
+
+        // $routes->fallbacks('DashedRoute');
+
+        //$routes->connect('/:action/*');
+    });
+
     $routes->fallbacks('DashedRoute');
 });
 
